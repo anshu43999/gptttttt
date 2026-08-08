@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "T2",
+  "kind": "sentinel",
+  "status": "specified",
+  "title": "Assemble openai-sentinel-token enforcement header",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#9.2"
+  ],
+  "sentinel": {
+    "flow_name": "<same as T1>",
+    "header_name": "openai-sentinel-token",
+    "input_keys": [
+      "p",
+      "t",
+      "c",
+      "id",
+      "flow"
+    ],
+    "notes": "JSON string header; p=PoW or null, t=turnstile or null, c=requirements token; never cache across job/flow/challenge"
+  },
+  "response_used": {
+    "fields": [],
+    "notes": "local assembly only"
+  },
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  },
+  "next_states": []
+}

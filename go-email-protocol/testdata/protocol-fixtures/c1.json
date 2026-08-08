@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "C1",
+  "kind": "continuation",
+  "status": "specified",
+  "title": "Continuation email-otp/send URL",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.3"
+  ],
+  "response_used": {
+    "discriminators": [
+      "continue_url",
+      "page.payload.url"
+    ],
+    "fields": [
+      "continue_url"
+    ],
+    "notes": "match path: https://auth.openai.com/api/accounts/email-otp/send"
+  },
+  "next_states": [
+    "S8"
+  ],
+  "notes": "dispatcher routes to S8",
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  }
+}

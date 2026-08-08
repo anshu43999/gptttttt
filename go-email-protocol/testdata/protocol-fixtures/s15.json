@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "S15",
+  "kind": "main",
+  "status": "specified",
+  "title": "Session-failure Codex OAuth reauth",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.4",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#7.2"
+  ],
+  "request": {
+    "method": "GET",
+    "url_template": "https://auth.openai.com/oauth/authorize",
+    "query_keys": [
+      "client_id",
+      "response_type",
+      "redirect_uri",
+      "scope",
+      "state",
+      "code_challenge",
+      "code_challenge_method",
+      "prompt",
+      "id_token_add_organizations",
+      "codex_cli_simplified_flow"
+    ],
+    "body_kind": "none",
+    "body_fields": [],
+    "header_preset": "B_oauth_authorize",
+    "header_keys": [
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width"
+    ]
+  },
+  "response_used": {
+    "fields": [
+      "code",
+      "state",
+      "continue_url"
+    ],
+    "discriminators": [
+      "state"
+    ],
+    "notes": "new client/jar/profile; PKCE; max 10 hops; token exchange on two endpoints"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "C6",
+    "L3"
+  ],
+  "notes": "Full reauth branch wire (password_verify, MFA, workspace, token exchange) partially capture_required in C6. Failure => registration_may_have_succeeded / reconcile_required."
+}

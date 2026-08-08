@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "S10",
+  "kind": "main",
+  "status": "specified",
+  "title": "POST email-otp/validate",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#7.1 S10"
+  ],
+  "request": {
+    "method": "POST",
+    "url_template": "https://auth.openai.com/api/accounts/email-otp/validate",
+    "query_keys": [],
+    "body_kind": "json",
+    "body_fields": [
+      {
+        "name": "code",
+        "type": "secret",
+        "required": true,
+        "notes": "OTP value never stored in fixtures"
+      }
+    ],
+    "header_preset": "S10_validate_otp",
+    "header_keys": [
+      "accept",
+      "content-type",
+      "origin",
+      "referer",
+      "user-agent"
+    ]
+  },
+  "response_used": {
+    "fields": [
+      "continue_url"
+    ],
+    "discriminators": [
+      "continue_url"
+    ],
+    "notes": "usually /about-you -> S11; disconnect after send is ambiguous"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S11",
+    "C3",
+    "L3"
+  ],
+  "notes": "No Accept-Language, Client Hints, Sec-Fetch per plan §7.1"
+}

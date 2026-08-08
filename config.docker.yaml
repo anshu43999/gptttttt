@@ -1,0 +1,34 @@
+# Docker deployment defaults for fucccccckgpt.
+# Runtime secrets should be configured in the UI or mounted as a private config.yaml.
+
+headed: false
+browser_mode: protocol
+browser_engine: playwright
+browser_channel: chromium
+browser_profile_mode: per_task
+browser_no_viewport: true
+use_camoufox: false
+save_session: true
+save_tokens: true
+
+max_parallel_tasks: 1
+max_register_tasks: 1
+max_oauth_tasks: 1
+max_maintenance_tasks: 1
+max_plus_verify_workers: 4
+outlook_graph_max_concurrent: 4
+
+email_protocol_backend: go
+go_email_protocol_url: "http://127.0.0.1:18765"
+go_email_protocol_timeout_seconds: 900
+go_email_protocol_transport: tls
+go_email_protocol_mode: pure
+mailat_protocol_use_local_bridge: false
+codex_protocol_use_local_bridge: false
+email_protocol_spawn_mode: inline
+
+upi_activation_enabled: true
+upi_submit_per_key_per_min: 20
+upi_poll_interval_sec: 5
+upi_poll_timeout_sec: 1800
+upi_auto_verify_plus: true

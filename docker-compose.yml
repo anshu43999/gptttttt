@@ -1,0 +1,31 @@
+services:
+  fucccccckgpt:
+    build:
+      context: .
+      target: app
+    image: fucccccckgpt:latest
+    container_name: fucccccckgpt
+    restart: unless-stopped
+    ports:
+      - "${GPT_REGISTER_PUBLIC_PORT:-47718}:8000"
+    environment:
+      GPT_REGISTER_DB_BACKEND: sqlite
+      GPT_REGISTER_SKIP_ENV_DB: "1"
+      GPT_REGISTER_HOST: 0.0.0.0
+      GPT_REGISTER_PORT: "8000"
+      GPT_REGISTER_START_GO_WORKER: "1"
+      GO_EMAIL_PROTOCOL_PURE_GO: "1"
+      GO_EMAIL_PROTOCOL_MODE: "${GO_EMAIL_PROTOCOL_MODE:-live}"
+      GO_EMAIL_PROTOCOL_TRANSPORT: "${GO_EMAIL_PROTOCOL_TRANSPORT:-tls}"
+      GO_EMAIL_PROTOCOL_MAX_ACTIVE: "${GO_EMAIL_PROTOCOL_MAX_ACTIVE:-1}"
+      GO_GRAPH_MAX_CONCURRENT: "${GO_GRAPH_MAX_CONCURRENT:-4}"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    shm_size: "512mb"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s

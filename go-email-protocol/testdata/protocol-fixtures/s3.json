@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "id": "S3",
+  "kind": "main",
+  "status": "specified",
+  "title": "POST /api/auth/signin/openai",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#7.2",
+    "codex_register/src/openai.ts openSignupPage"
+  ],
+  "request": {
+    "method": "POST",
+    "url_template": "https://chatgpt.com/api/auth/signin/openai",
+    "query_keys": [
+      "prompt",
+      "ext-oai-did",
+      "auth_session_logging_id",
+      "ext-passkey-client-capabilities",
+      "screen_hint",
+      "login_hint"
+    ],
+    "body_kind": "form",
+    "body_fields": [
+      {
+        "name": "callbackUrl",
+        "type": "string",
+        "required": true,
+        "notes": "https://chatgpt.com/"
+      },
+      {
+        "name": "csrfToken",
+        "type": "secret",
+        "required": true,
+        "notes": "value omitted from fixtures"
+      },
+      {
+        "name": "json",
+        "type": "string",
+        "required": true,
+        "notes": "literal true"
+      }
+    ],
+    "header_preset": "S3_nextauth_signin",
+    "header_keys": [
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width",
+      "accept",
+      "content-type",
+      "origin",
+      "referer",
+      "sec-fetch-dest",
+      "sec-fetch-mode",
+      "sec-fetch-site"
+    ]
+  },
+  "response_used": {
+    "fields": [
+      "url"
+    ],
+    "discriminators": [
+      "url"
+    ],
+    "notes": "JSON url non-empty -> S4"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S4"
+  ]
+}

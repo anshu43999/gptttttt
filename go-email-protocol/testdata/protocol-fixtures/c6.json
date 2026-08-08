@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "C6",
+  "kind": "continuation",
+  "status": "capture_required",
+  "title": "Continuation add-email|mfa|workspace|consent|unknown",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.3"
+  ],
+  "response_used": {
+    "discriminators": [
+      "continue_url",
+      "page.payload.url"
+    ],
+    "fields": [
+      "continue_url"
+    ],
+    "notes": "match path: /add-email|/mfa-challenge|/workspace|consent|unknown"
+  },
+  "next_states": [
+    "L3"
+  ],
+  "notes": "branch FSMs (add-email, MFA, workspace, consent) and unknown => unexpected_continuation",
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  }
+}

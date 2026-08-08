@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "id": "S7",
+  "kind": "main",
+  "status": "specified",
+  "title": "POST user/register password",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#7.2",
+    "codex_register registerPassword"
+  ],
+  "request": {
+    "method": "POST",
+    "url_template": "https://auth.openai.com/api/accounts/user/register",
+    "query_keys": [],
+    "body_kind": "json",
+    "body_fields": [
+      {
+        "name": "password",
+        "type": "secret",
+        "required": true,
+        "notes": "value never in fixtures"
+      },
+      {
+        "name": "username",
+        "type": "template",
+        "required": true,
+        "notes": "email"
+      }
+    ],
+    "header_preset": "J_register_password",
+    "header_keys": [
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width",
+      "accept",
+      "content-type",
+      "origin",
+      "referer",
+      "sec-fetch-dest",
+      "sec-fetch-mode",
+      "sec-fetch-site",
+      "openai-sentinel-token"
+    ]
+  },
+  "sentinel": {
+    "flow_name": "username_password_create",
+    "header_name": "openai-sentinel-token",
+    "input_keys": [
+      "p",
+      "t",
+      "c",
+      "id",
+      "flow"
+    ]
+  },
+  "response_used": {
+    "fields": [
+      "continue_url",
+      "page.type"
+    ],
+    "discriminators": [
+      "continue_url"
+    ]
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "C1",
+    "C2",
+    "C5",
+    "C6"
+  ],
+  "notes": "ambiguous_after_send if request sent but response lost"
+}

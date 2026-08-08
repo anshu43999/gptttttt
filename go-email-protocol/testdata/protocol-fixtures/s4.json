@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "S4",
+  "kind": "main",
+  "status": "specified",
+  "title": "GET authorize page from S3.url",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2"
+  ],
+  "request": {
+    "method": "GET",
+    "url_template": "<server-issued-from-S3.url>",
+    "query_keys": [],
+    "body_kind": "none",
+    "body_fields": [],
+    "header_preset": "S4_authorize_page",
+    "header_keys": [
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width",
+      "accept-encoding",
+      "referer",
+      "sec-fetch-dest",
+      "sec-fetch-mode",
+      "sec-fetch-site"
+    ]
+  },
+  "response_used": {
+    "fields": [
+      "set-cookie"
+    ],
+    "notes": "2xx; all Set-Cookie stay in same jar"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S5"
+  ]
+}

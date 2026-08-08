@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "C3",
+  "kind": "continuation",
+  "status": "specified",
+  "title": "Continuation /about-you",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.3"
+  ],
+  "response_used": {
+    "discriminators": [
+      "continue_url",
+      "page.payload.url"
+    ],
+    "fields": [
+      "continue_url"
+    ],
+    "notes": "match path: /about-you"
+  },
+  "next_states": [
+    "S11"
+  ],
+  "notes": "dispatcher routes to S11",
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  }
+}

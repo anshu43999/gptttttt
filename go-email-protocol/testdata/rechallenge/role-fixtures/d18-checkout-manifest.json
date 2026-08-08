@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "capture_id": "d18-checkout",
+  "role": "checkout",
+  "role_evidence": [
+    {
+      "kind": "checkout_context",
+      "host": "chatgpt.com",
+      "path": "/backend-api/checkout_pricing_config/configs/IN"
+    },
+    {
+      "kind": "checkout_endpoint",
+      "host": "chatgpt.com",
+      "path": "/backend-api/payments/checkout/approve"
+    },
+    {
+      "kind": "checkout_endpoint",
+      "host": "chatgpt.com",
+      "path": "/backend-api/payments/checkout/snapshot"
+    },
+    {
+      "kind": "checkout_endpoint",
+      "host": "chatgpt.com",
+      "path": "/checkout/{checkout_session}"
+    },
+    {
+      "kind": "sentinel_flow",
+      "host": "chatgpt.com",
+      "path": "/backend-api/sentinel/req",
+      "flow": "checkout_session_approval"
+    }
+  ],
+  "captured_at": "2026-07-18T08:38:11.711+05:30",
+  "source_sha256": "sha256:3395a431597cc5f505483bf06bec378fdca6705fba50586dad14aae4dc390cd9",
+  "browser": "firefox",
+  "ua_major": 150,
+  "locale": "hi-IN",
+  "timezone": "UTC+05:30",
+  "source_kind": "har",
+  "redaction_policy_id": "checkout-v1"
+}

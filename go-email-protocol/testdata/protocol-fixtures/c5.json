@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "C5",
+  "kind": "continuation",
+  "status": "specified",
+  "title": "Continuation /add-phone",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.3"
+  ],
+  "response_used": {
+    "discriminators": [
+      "continue_url",
+      "page.payload.url"
+    ],
+    "fields": [
+      "continue_url"
+    ],
+    "notes": "match path: /add-phone"
+  },
+  "next_states": [],
+  "notes": "phone_verification_required; skip_phone is not success",
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  }
+}

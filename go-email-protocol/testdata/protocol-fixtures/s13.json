@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "S13",
+  "kind": "main",
+  "status": "specified",
+  "title": "GET /api/auth/session",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2"
+  ],
+  "request": {
+    "method": "GET",
+    "url_template": "https://chatgpt.com/api/auth/session",
+    "query_keys": [],
+    "body_kind": "none",
+    "body_fields": [],
+    "header_preset": "S13_session",
+    "header_keys": [
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width",
+      "accept",
+      "sec-fetch-dest",
+      "sec-fetch-mode",
+      "sec-fetch-site",
+      "referer"
+    ]
+  },
+  "response_used": {
+    "fields": [
+      "accessToken",
+      "access_token"
+    ],
+    "discriminators": [
+      "accessToken",
+      "access_token"
+    ],
+    "notes": "prefer accessToken else access_token; non-empty -> S14; empty may trigger S15"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S14",
+    "S15"
+  ],
+  "notes": "Token values never stored in fixtures; only field names"
+}

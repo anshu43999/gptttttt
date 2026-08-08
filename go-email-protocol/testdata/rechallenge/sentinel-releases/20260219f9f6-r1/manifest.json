@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "release_id": "sentinel-20260219f9f6-r1",
+  "frame_sv": "20260219f9f6",
+  "loader": {
+    "url": "https://sentinel.openai.com/backend-api/sentinel/sdk.js",
+    "sha256": "a656b4b050e98ad23afc481a8d2fd7d0a316813ee38cf52bec07860e264d57cb",
+    "resolves_to": "https://sentinel.openai.com/sentinel/20260219f9f6/sdk.js"
+  },
+  "sdk": {
+    "url": "https://sentinel.openai.com/sentinel/20260219f9f6/sdk.js",
+    "sha256": "4f8ef8d5870894fd0101fc40ff45ea13c0f8e25c71c2ba28e5df5baf98babbb5",
+    "patch_hook_id": "turnstile-and-so-v1"
+  },
+  "observed_script_sources": [
+    "https://sentinel.openai.com/backend-api/sentinel/sdk.js",
+    "https://sentinel.openai.com/sentinel/20260219f9f6/sdk.js"
+  ],
+  "payload_index_5_policy": "sample_known_source",
+  "payload_index_6_policy": "firefox_null",
+  "manifest_sha256": "sha256:938f2cf548e273bb893db207b39a52876440378a1a4022fdbf84253b101c1f69"
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "id": "T1",
+  "kind": "sentinel",
+  "status": "specified",
+  "title": "POST sentinel requirements",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#9.2",
+    "codex_register/src/sentinel.ts"
+  ],
+  "request": {
+    "method": "POST",
+    "url_template": "https://sentinel.openai.com/backend-api/sentinel/req",
+    "query_keys": [],
+    "body_kind": "json",
+    "body_fields": [
+      {
+        "name": "p",
+        "type": "secret",
+        "required": true,
+        "notes": "requirements proof value omitted"
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "notes": "server oai-did; value omitted"
+      },
+      {
+        "name": "flow",
+        "type": "string",
+        "required": true,
+        "notes": "authorize_continue|password_verify|username_password_create|oauth_create_account"
+      }
+    ],
+    "header_preset": "T1_requirements",
+    "header_keys": [
+      "content-type",
+      "user-agent"
+    ]
+  },
+  "sentinel": {
+    "flow_name": "<per-call>",
+    "input_keys": [
+      "p",
+      "id",
+      "flow"
+    ],
+    "notes": "response: token, proofofwork, turnstile.dx"
+  },
+  "response_used": {
+    "fields": [
+      "token",
+      "proofofwork.required",
+      "proofofwork.seed",
+      "proofofwork.difficulty",
+      "turnstile.dx"
+    ]
+  },
+  "cookies": [
+    {
+      "name": "oai-did",
+      "domain": "sentinel.openai.com",
+      "path": "/",
+      "http_only": false,
+      "secure": true,
+      "same_site": "None",
+      "value_policy": "omit"
+    }
+  ],
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "T2",
+    "T3"
+  ]
+}

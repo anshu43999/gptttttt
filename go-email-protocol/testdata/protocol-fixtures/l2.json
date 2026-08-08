@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "L2",
+  "kind": "local",
+  "status": "specified",
+  "title": "Local durable succeeded session document",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#11.2"
+  ],
+  "response_used": {
+    "fields": [
+      "session_document_schema",
+      "access_token_present"
+    ],
+    "notes": "versioned handoff to Python; token values not in fixtures"
+  },
+  "next_states": [],
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  }
+}

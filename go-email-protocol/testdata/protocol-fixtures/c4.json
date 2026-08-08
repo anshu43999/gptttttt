@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "C4",
+  "kind": "continuation",
+  "status": "specified",
+  "title": "Continuation chatgpt callback/openai",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.3"
+  ],
+  "response_used": {
+    "discriminators": [
+      "continue_url",
+      "page.payload.url"
+    ],
+    "fields": [
+      "continue_url"
+    ],
+    "notes": "match path: https://chatgpt.com/api/auth/callback/openai..."
+  },
+  "next_states": [
+    "S12"
+  ],
+  "notes": "dispatcher routes to S12",
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  }
+}

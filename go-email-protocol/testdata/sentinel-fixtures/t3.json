@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "T3",
+  "kind": "sentinel",
+  "status": "capture_required",
+  "title": "Turnstile SDK/native dx path",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#9.4"
+  ],
+  "sentinel": {
+    "flow_name": "<same as T1>",
+    "input_keys": [
+      "turnstile.dx",
+      "buildHash",
+      "scriptSources"
+    ],
+    "notes": "SDK realm + native VM; pinned build fixtures required; no invented dx wire"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "T2"
+  ],
+  "notes": "capture_required: dynamic SDK build/hash/dx fixtures not yet captured"
+}

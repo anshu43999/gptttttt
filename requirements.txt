@@ -1,0 +1,24 @@
+# Local operator dashboard dependencies
+# Python 3.13 required
+
+# Browser runtime
+camoufox>=0.1.0
+playwright>=1.45.0
+patchright>=1.60.1
+curl-cffi>=0.7.0
+
+# === HTTP & Parsing ===
+requests[socks]>=2.31.0
+pyyaml>=6.0
+beautifulsoup4>=4.12.0
+
+# === Utilities ===
+python-dotenv>=1.0.0
+# === Local Dashboard (FastAPI) ===
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+
+# === Database (optional Postgres) ===
+# pip install when GPT_REGISTER_DB_BACKEND=postgres
+psycopg[binary]>=3.1; python_version>="3.10"

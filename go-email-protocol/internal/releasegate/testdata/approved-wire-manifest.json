@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "release_id": "wire-registration-r1",
+  "contract_release_id": "rc_63f3dd11061ef716",
+  "contract_canonical_sha256": "sha256:63f3dd11061ef716d82d52ad9811083c4cdd1f1bebf49c6e9ee95db513313e8b",
+  "sentinel_release_id": "sentinel-20260219f9f6-r1",
+  "sentinel_manifest_sha256": "sha256:938f2cf548e273bb893db207b39a52876440378a1a4022fdbf84253b101c1f69",
+  "transport_profile_id": "firefox-150-win-h2-r1",
+  "transport_profile_sha256": "sha256:15cc28b5d04bf28ed9257dd1907428492d9b61263216418947c30ec175c93695",
+  "header_contract_id": "registration-headers-r1",
+  "header_contract_sha256": "sha256:1ec338adf2425ebc1b3d65d4d227e6300fef3b5a02598c9a283c70c9ef9b00f1",
+  "browser": "firefox",
+  "browser_version": "150.0",
+  "browser_version_policy": "exact",
+  "manifest_sha256": "sha256:d693293dc8190aaec5183d24297263e8b6e7e82a919bb5340442cfccc8537d01"
+}

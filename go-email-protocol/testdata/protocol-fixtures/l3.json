@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "L3",
+  "kind": "local",
+  "status": "specified",
+  "title": "Local reconcile_required / ambiguous_after_send",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.4",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#10.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#12"
+  ],
+  "response_used": {
+    "fields": [
+      "registration_may_have_succeeded",
+      "reconcile_required",
+      "ambiguous_after_send"
+    ],
+    "notes": "redacted checkpoint only; no re-register email"
+  },
+  "next_states": [],
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  }
+}

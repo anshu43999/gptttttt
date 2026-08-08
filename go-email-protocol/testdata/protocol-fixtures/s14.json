@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "S14",
+  "kind": "main",
+  "status": "specified",
+  "title": "Durable result / handoff document",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#11.2"
+  ],
+  "response_used": {
+    "fields": [
+      "access_token_present",
+      "jar_schema",
+      "profile_schema",
+      "session_schema"
+    ],
+    "notes": "success when schemas pass; secrets only in encrypted checkpoint, not fixture"
+  },
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  },
+  "next_states": [
+    "L2"
+  ],
+  "notes": "No upstream HTTP"
+}

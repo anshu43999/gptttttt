@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "L1",
+  "kind": "local",
+  "status": "specified",
+  "title": "Local durable OTP challenge handoff",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#5.3",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2 S9"
+  ],
+  "response_used": {
+    "fields": [
+      "challenge_id",
+      "version",
+      "status"
+    ],
+    "notes": "OTP code from Python mailbox never in ledger plaintext/logs"
+  },
+  "next_states": [
+    "S10"
+  ],
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  }
+}

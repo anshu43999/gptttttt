@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "capture_id": "d24-firefox150-jajp",
+  "role": "registration",
+  "role_evidence": [
+    {
+      "kind": "checkout_context",
+      "host": "chatgpt.com",
+      "path": "/backend-anon/checkout_pricing_config/configs/JP"
+    },
+    {
+      "kind": "checkout_context",
+      "host": "chatgpt.com",
+      "path": "/backend-api/checkout_pricing_config/configs/JP"
+    },
+    {
+      "kind": "registration_endpoint",
+      "host": "auth.openai.com",
+      "path": "/api/accounts/authorize"
+    },
+    {
+      "kind": "registration_endpoint",
+      "host": "auth.openai.com",
+      "path": "/api/accounts/create_account"
+    },
+    {
+      "kind": "registration_endpoint",
+      "host": "auth.openai.com",
+      "path": "/api/accounts/email-otp/validate"
+    },
+    {
+      "kind": "registration_endpoint",
+      "host": "chatgpt.com",
+      "path": "/api/auth/callback/openai"
+    },
+    {
+      "kind": "registration_endpoint",
+      "host": "chatgpt.com",
+      "path": "/api/auth/csrf"
+    },
+    {
+      "kind": "registration_endpoint",
+      "host": "chatgpt.com",
+      "path": "/api/auth/providers"
+    },
+    {
+      "kind": "registration_endpoint",
+      "host": "chatgpt.com",
+      "path": "/api/auth/signin/openai"
+    },
+    {
+      "kind": "sentinel_flow",
+      "host": "sentinel.openai.com",
+      "path": "/backend-api/sentinel/req",
+      "flow": "oauth_create_account"
+    }
+  ],
+  "captured_at": "2026-07-24T05:13:22.924+09:00",
+  "source_sha256": "sha256:fcff279e35969a3ccf8bf14710fbc0c54e9600796f57cffe345fa7ba918b9a97",
+  "browser": "firefox",
+  "ua_major": 150,
+  "locale": "ja",
+  "timezone": "UTC+09:00",
+  "source_kind": "har",
+  "redaction_policy_id": "registration-v1"
+}

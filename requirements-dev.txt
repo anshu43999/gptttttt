@@ -1,0 +1,3 @@
+# Test dependencies for local verification and CI
+pytest>=8.2
+httpx>=0.27

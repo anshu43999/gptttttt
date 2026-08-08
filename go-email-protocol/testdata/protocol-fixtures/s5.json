@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "S5",
+  "kind": "main",
+  "status": "specified",
+  "title": "Sentinel authorize_continue (delegates to T1-T3)",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#9"
+  ],
+  "sentinel": {
+    "flow_name": "authorize_continue",
+    "input_keys": [
+      "p",
+      "id",
+      "flow"
+    ],
+    "header_name": "openai-sentinel-token",
+    "notes": "fresh per protected action; see T1/T2/T3"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S6",
+    "T1"
+  ]
+}

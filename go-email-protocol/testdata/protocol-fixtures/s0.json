@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "S0",
+  "kind": "main",
+  "status": "specified",
+  "title": "Establish attempt context",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "codex_register/src/openai.ts"
+  ],
+  "response_used": {
+    "fields": [],
+    "notes": "local validation only"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S1"
+  ],
+  "notes": "Local: email, password (secret, not stored in fixture values), immutable profile, empty jar, proxy snapshot. No upstream HTTP."
+}

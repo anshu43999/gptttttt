@@ -1,0 +1,9 @@
+schema-only dump for fucccccckgpt package
+tables=18
+excluded_tables=['ping', 'x']
+source_row_counts_NOT_included_in_sql={'account_artifacts': 41425, 'account_credentials': 49429, 'account_events': 163633, 'account_proxy': 49524, 'accounts': 49569, 'app_config': 60, 'archive_batches': 1, 'email_otp_events': 276, 'plus_activation_batch_items': 1403, 'plus_activation_batches': 14, 'plus_activation_exports': 13, 'provider_settings': 6, 'proxies': 0, 'registration_runs': 13, 'resource_pool': 64804, 'sms_activations': 282533, 'task_events': 389967, 'tasks': 98235}
+file=gpt_register_pg_sanitized.sql
+bytes=21861
+sha256=1e59fa7c9d1fa79e7dcb8db3704363c74cf14517c4a364b570ebf2f379c5eca4
+generated_at=2026-07-28T18:06:42.714452+00:00
+NOTE: production row counts listed only as proof; package SQL has zero rows.

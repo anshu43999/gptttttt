@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "S12",
+  "kind": "main",
+  "status": "specified",
+  "title": "GET server-issued callback URL",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#7.1 S12"
+  ],
+  "request": {
+    "method": "GET",
+    "url_template": "https://chatgpt.com/api/auth/callback/openai?<server-issued>",
+    "query_keys": [],
+    "body_kind": "none",
+    "body_fields": [],
+    "header_preset": "S12_callback",
+    "header_keys": [
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width",
+      "accept",
+      "referer"
+    ]
+  },
+  "cookies": [
+    {
+      "name": "session_cookies",
+      "domain": "chatgpt.com",
+      "path": "/",
+      "http_only": true,
+      "secure": true,
+      "same_site": "Lax",
+      "value_policy": "omit"
+    }
+  ],
+  "response_used": {
+    "fields": [
+      "set-cookie"
+    ],
+    "notes": "2xx and callback Set-Cookie land in jar"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S13"
+  ],
+  "notes": "No source-defined Sec-Fetch on this call"
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "S1",
+  "kind": "main",
+  "status": "specified",
+  "title": "GET chatgpt.com homepage; capture oai-did",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#7.1"
+  ],
+  "request": {
+    "method": "GET",
+    "url_template": "https://chatgpt.com/",
+    "query_keys": [],
+    "body_kind": "none",
+    "body_fields": [],
+    "header_preset": "S1_homepage",
+    "header_keys": [
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width",
+      "accept-encoding",
+      "sec-fetch-dest",
+      "sec-fetch-mode",
+      "sec-fetch-site"
+    ]
+  },
+  "cookies": [
+    {
+      "name": "oai-did",
+      "domain": "chatgpt.com",
+      "path": "/",
+      "http_only": false,
+      "secure": true,
+      "same_site": "",
+      "value_policy": "omit"
+    }
+  ],
+  "response_used": {
+    "fields": [
+      "set-cookie:oai-did"
+    ],
+    "discriminators": [],
+    "notes": "deviceID from chatgpt.com jar, fallback openai.com; missing fails"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S2"
+  ]
+}

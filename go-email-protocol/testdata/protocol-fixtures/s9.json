@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "S9",
+  "kind": "main",
+  "status": "specified",
+  "title": "Durable waiting_for_otp",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#5.3"
+  ],
+  "response_used": {
+    "fields": [
+      "challenge_id",
+      "version"
+    ],
+    "notes": "Python mailbox callback submits code; OTP value never logged"
+  },
+  "transport": {
+    "profile_id": "n/a-local",
+    "alpn": [],
+    "bridge_required": false
+  },
+  "next_states": [
+    "S10",
+    "L1"
+  ],
+  "notes": "No OpenAI request. Occupies active slot without HTTP goroutine."
+}

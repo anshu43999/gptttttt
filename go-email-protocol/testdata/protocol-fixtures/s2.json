@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "id": "S2",
+  "kind": "main",
+  "status": "specified",
+  "title": "CSRF cookie or GET /api/auth/csrf",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#7.2"
+  ],
+  "request": {
+    "method": "GET",
+    "url_template": "https://chatgpt.com/api/auth/csrf",
+    "query_keys": [],
+    "body_kind": "none",
+    "body_fields": [],
+    "header_preset": "S2_csrf_fallback",
+    "header_keys": [
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width",
+      "accept",
+      "accept-encoding",
+      "referer",
+      "sec-fetch-dest",
+      "sec-fetch-mode",
+      "sec-fetch-site"
+    ]
+  },
+  "cookies": [
+    {
+      "name": "__Host-next-auth.csrf-token",
+      "domain": "chatgpt.com",
+      "path": "/",
+      "http_only": true,
+      "secure": true,
+      "same_site": "Lax",
+      "value_policy": "omit"
+    }
+  ],
+  "response_used": {
+    "fields": [
+      "csrfToken",
+      "cookie:__Host-next-auth.csrf-token"
+    ],
+    "notes": "URL-decode cookie, take segment before |; else JSON csrfToken"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S3"
+  ],
+  "notes": "HTTP only when CSRF cookie missing"
+}

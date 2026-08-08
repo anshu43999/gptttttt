@@ -1,0 +1,48 @@
+# Production/private runtime
+config.yaml
+config.local.yaml
+env.db
+output/
+data/
+tmp/
+at-file/
+*.db
+*.db-*
+*.sqlite*
+*.log
+proxies.csv
+outlook_accounts.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+
+# Frontend rebuildables
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+
+# Go build scratch
+go-email-protocol/bin/
+*.exe~
+
+# Sensitive artifacts
+resume_*
+storage_*
+tokens_*
+manual_plus_*
+**/storage_state.json
+**/network.jsonl
+**/bodies/
+
+# Local/editor
+.env
+.env.*
+.vscode/
+.idea/
+*.har
+*.zip

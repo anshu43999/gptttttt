@@ -1,0 +1,134 @@
+# GPT Register config template (sanitized)
+# Copy to config.yaml and fill your own values. Do not redistribute config.yaml.
+
+output_dir: output
+
+# Main DB is controlled by env.db (start.bat / start.py), not these yaml keys.
+# env.db -> GPT_REGISTER_DB_BACKEND=postgres + GPT_REGISTER_DATABASE_URL
+
+headed: false
+browser_mode: hybrid
+browser_engine: patchright
+browser_channel: chromium
+browser_profile_mode: per_task
+browser_no_viewport: true
+email_register_flow: fast
+use_camoufox: false
+camoufox_geoip: true
+camoufox_humanize: true
+camoufox_enable_cache: false
+locale: ja-JP
+timezone_id: Asia/Tokyo
+accept_language: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+save_session: false
+save_tokens: false
+max_parallel_tasks: 100
+max_register_tasks: 100
+max_oauth_tasks: 1
+max_plus_verify_workers: 64
+save_token_pool: false
+
+sms_provider: herosms_api
+sms_phone_url: ""
+sms_phone_url_file: ""
+sms_api_key: ""
+sms_country: "187"
+sms_service: "dr"
+sms_proxy: "singbox://direct"
+sms_code_timeout: 180
+phone_retry_limit: 20
+country_code: "1"
+country_name: "United States"
+herosms_fixed_price: false
+herosms_max_price: 0.1
+herosms_cancel_on_timeout: false
+prepare_registration_before_phone: true
+precheck_phone_before_sms: true
+herosms_presend_cancel_delay: 75
+
+proxy: ""
+rotate_proxy_each_attempt: true
+lajiao_proxy_api_url: ""
+lajiao_proxy_mode: credentials
+proxy_seed_styles: bestgo,1024
+lajiao_proxy_credential_protocol: socks5
+lajiao_proxy_credentials: ""
+lajiao_proxy_credentials_file: ""
+lajiao_proxy_regions: "JP,US,DE,GB,BR"
+lajiao_proxy_num: 1
+lajiao_proxy_timeout: 15
+lajiao_proxy_max_batches: 10
+lajiao_proxy_max_candidates: 60
+lajiao_proxy_select_deadline: 300
+lajiao_proxy_expected_country: JP
+manual_observer_proxy: ""
+outlook_graph_max_concurrent: 96
+
+iceaix_api_key: ""
+iceaix_base_url: "https://plus.iceaix.com"
+iceaix_sms_api: ""
+paypal_phone: ""
+iceaix_job_timeout: 300
+iceaix_poll_interval: 3
+iceaix_otp_timeout: 60
+iceaix_pplink_retry: 20
+iceaix_proxy: ""
+iceaix_proxy_jp: ""
+iceaix_allow_paid_no_trial: false
+iceaix_continue_on_trial_check_error: false
+plus_verify_retries: 12
+plus_verify_interval: 20
+
+upi_activation_enabled: true
+upi_base_url: "https://upi.akkkkk.top"
+upi_client_key: ""
+upi_client_keys: []
+upi_default_channel: "upi"
+upi_device_id: "gpt-register"
+upi_submit_per_key_per_min: 50
+upi_poll_interval_sec: 5
+upi_poll_timeout_sec: 1800
+upi_auto_verify_plus: true
+
+outlook_email: ""
+outlook_password: ""
+outlook_web_otp: true
+outlook_token_order_file: ""
+oauth_client_id: ""
+oauth_redirect_uri: "http://localhost:1455/auth/callback"
+oauth_callback_mode: cpa
+cpa_base_url: ""
+cpa_management_key: ""
+outlook_failed_retryable_limit: 2
+outlook_cooldown_hours: 24
+outlook_max_attempts_per_run: 3
+
+sub2api_url: ""
+sub2api_admin_key: ""
+
+# Default path: pure-Go + outlook_token (see docs/go-protocol-usage.md)
+mailbox_provider: outlook_token
+icloud_api_order_file: ""
+email_otp_timeout: 120
+email_otp_poll_interval: 3
+email_protocol_backend: go
+go_email_protocol_url: "http://127.0.0.1:18765"
+go_email_protocol_timeout_seconds: 900
+go_email_protocol_transport: tls
+go_email_protocol_mode: pure
+mailat_protocol_use_local_bridge: false
+codex_protocol_use_local_bridge: false
+email_protocol_spawn_mode: inline
+
+icloud_privacy_order_file: ""
+mailbox_domain: ""
+mailbox_imap_user: ""
+mailbox_imap_pass: ""
+mailbox_imap_host: ""
+mailbox_imap_port: 993
+cfworker_api_url: ""
+cfworker_admin_token: ""
+cfworker_domain: ""
+
+# outlook_token import format:
+# email----password----client_id----refresh_token

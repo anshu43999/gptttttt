@@ -1,0 +1,45 @@
+# Docker build context
+.git
+.gitignore
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Local/sensitive runtime state
+.env
+.env.*
+config.yaml
+config.local.yaml
+env.db
+data/
+output/
+tmp/
+at-file/
+*.db
+*.db-*
+*.sqlite*
+*.log
+*.har
+*.zip
+proxies.csv
+outlook_accounts.csv
+resume_*
+storage_*
+tokens_*
+manual_plus_*
+**/storage_state.json
+**/network.jsonl
+**/bodies/
+
+# Frontend rebuildables
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+
+# Go local binaries/scratch
+go-email-protocol/bin/
+go-email-protocol/email-protocol-worker.exe
+*.exe~

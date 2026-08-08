@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "transport-profile-v1",
+  "status": "capture_required",
+  "title": "TransportProfile v1 observation shell",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#10.1"
+  ],
+  "profile": {
+    "id": "chrome-baseline-capture_required",
+    "go_version": "go1.22.12",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "http2_pseudo_header_order": [
+      ":method",
+      ":authority",
+      ":scheme",
+      ":path"
+    ],
+    "redirect_max_hops": 10,
+    "certificate_validation": true,
+    "bridge_required": true,
+    "status": "capture_required",
+    "tls_client_hello_fixture": "capture_required",
+    "tls_extension_order_fixture": "capture_required",
+    "http2_settings_fixture": "capture_required",
+    "module_graph_fixture": "capture_required"
+  },
+  "notes": "Wire TLS/HTTP2 values must come from controlled capture; not invented"
+}

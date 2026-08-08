@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "id": "S6",
+  "kind": "main",
+  "status": "specified",
+  "title": "POST authorize/continue signup",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#7.2"
+  ],
+  "request": {
+    "method": "POST",
+    "url_template": "https://auth.openai.com/api/accounts/authorize/continue",
+    "query_keys": [],
+    "body_kind": "json",
+    "body_fields": [
+      {
+        "name": "username",
+        "type": "object",
+        "required": true,
+        "object_keys": [
+          "kind",
+          "value"
+        ],
+        "notes": "kind=email; value is email template, not stored secret"
+      },
+      {
+        "name": "screen_hint",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "header_preset": "J_signup_continuation",
+    "header_keys": [
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width",
+      "accept",
+      "content-type",
+      "origin",
+      "referer",
+      "sec-fetch-dest",
+      "sec-fetch-mode",
+      "sec-fetch-site",
+      "openai-sentinel-token"
+    ]
+  },
+  "sentinel": {
+    "flow_name": "authorize_continue",
+    "header_name": "openai-sentinel-token",
+    "input_keys": [
+      "p",
+      "t",
+      "c",
+      "id",
+      "flow"
+    ]
+  },
+  "response_used": {
+    "fields": [
+      "continue_url",
+      "page.type",
+      "page.payload.url"
+    ],
+    "discriminators": [
+      "continue_url"
+    ],
+    "notes": "route via continuation dispatcher C0-C6"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "C0",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6"
+  ]
+}

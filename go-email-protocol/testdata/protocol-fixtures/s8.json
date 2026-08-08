@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "id": "S8",
+  "kind": "main",
+  "status": "specified",
+  "title": "GET email-otp/send",
+  "source_refs": [
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#6.2",
+    "docs/EMAIL_PROTOCOL_GO_PLAN.md#7.1 S8"
+  ],
+  "request": {
+    "method": "GET",
+    "url_template": "https://auth.openai.com/api/accounts/email-otp/send",
+    "query_keys": [],
+    "body_kind": "none",
+    "body_fields": [],
+    "header_preset": "S8_send_email_otp",
+    "header_keys": [
+      "accept",
+      "referer",
+      "user-agent",
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-full-version-list",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-ch-ua-platform-version",
+      "sec-ch-viewport-width"
+    ]
+  },
+  "response_used": {
+    "fields": [
+      "continue_url"
+    ],
+    "discriminators": [
+      "continue_url"
+    ],
+    "notes": "usually /email-verification -> S9"
+  },
+  "transport": {
+    "profile_id": "chrome-baseline-capture_required",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "bridge_required": true,
+    "notes": "TLS/HTTP2 wire fields require baseline capture; not invented in G0"
+  },
+  "next_states": [
+    "S9",
+    "C2"
+  ],
+  "notes": "No source-defined Origin, Content-Type, Sec-Fetch on this call"
+}
