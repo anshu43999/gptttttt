@@ -144,6 +144,20 @@ OAUTH_NETWORK_MARKERS = (
     "网络超时",
 )
 
+BROWSER_INFRA_FAILURE_MARKERS = (
+    "browsertype.launch",
+    "launch_persistent_context",
+    "target page, context or browser has been closed",
+    "browser has been closed",
+    "target closed",
+    "browser closed",
+    "failed to launch",
+    "executable doesn't exist",
+    "no usable sandbox",
+    "zygote",
+    "dev/shm",
+)
+
 PROXY_SUCCESS_COOLDOWN_SECONDS = 1800
 PROXY_FAILURE_COOLDOWN_SECONDS = 1800
 BIND_PHONE_FAILURE_COOLDOWN_SECONDS = 3600
@@ -892,26 +906,16 @@ class ResourcePoolService:
                 )
 
         if not existing_account_binding_task and str(config.get("mailbox_provider") or "") == "icloud_api":
-            pool_state = self._load_icloud_api_pool_state()
             leased_icloud = False
             for _ in range(50):
                 lease = self.repo.lease("email", "icloud_api", task_id)
                 if not lease.resource_key:
                     break
                 email = str(lease.payload.get("email") or lease.resource_key).strip()
-                email_key = email.lower()
-                state = pool_state.get(email_key, "")
-                if state in {"consumed", "dirty_email_already_used"}:
-                    current = self.repo.get("email", "icloud_api", lease.resource_key)
-                    if int(current.get("id") or 0) > 0:
-                        self.repo.set_status(int(current["id"]), status="used", error=f"icloud api state {state}")
-                    continue
-                if state == "cooldown":
-                    current = self.repo.get("email", "icloud_api", lease.resource_key)
-                    if int(current.get("id") or 0) > 0:
-                        self.repo.set_status(int(current["id"]), status="cooldown", cooldown_until=self.cooldown_until(3600), error="icloud api state cooldown")
-                    continue
-                # Stale jsonl "reserved" is ignored: resource pool is the exclusive lease authority.
+                # SQLite resource_pool is the exclusive lease/status authority for
+                # imported iCloud API mailboxes. Legacy outlook_pool_state.jsonl may
+                # contain stale consumed/cooldown records from older runs and must not
+                # silently mutate resource_pool rows during a new registration start.
                 leases.append(lease)
                 inbox_url = str(lease.payload.get("inbox_url") or "")
                 code_url = str(lease.payload.get("code_url") or "")
@@ -1278,6 +1282,8 @@ class ResourcePoolService:
     def _classify_resource_status(self, resource_type: str, task_status: str, evidence: str) -> tuple[str, str, int]:
         if task_status == "succeeded":
             return ("success", "available" if resource_type == "proxy" else "used", 0)
+        if _contains_marker(evidence, BROWSER_INFRA_FAILURE_MARKERS):
+            return ("browser_start_failure", "available", 0)
         if task_status == "interrupted" and resource_type == "proxy":
             return ("interrupted", "cooldown", PROXY_FAILURE_COOLDOWN_SECONDS)
         if task_status == "cancelled":

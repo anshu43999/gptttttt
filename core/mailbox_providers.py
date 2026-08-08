@@ -176,8 +176,13 @@ class LinkApiMailbox:
     def create_account(self) -> MailboxAccount:
         state_path = self._state_path()
         with _email_pool_lock(state_path.with_suffix(state_path.suffix + ".lock")):
-            blocked = self._blocked_emails()
-            for row in self._rows():
+            rows = self._rows()
+            # Resource-pool tasks inject exactly one leased iCloud API row via order_text.
+            # In that path SQLite resource_pool is the lease authority; stale legacy
+            # outlook_pool_state.jsonl consumed/cooldown markers must not make the
+            # freshly leased singleton unusable after an operator resets it to available.
+            blocked = set() if len(rows) == 1 and not self.order_file else self._blocked_emails()
+            for row in rows:
                 normalized = row["email"].strip().lower()
                 if normalized not in blocked:
                     self._record_state(normalized, "reserved", reason="icloud email registration lease")

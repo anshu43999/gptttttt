@@ -741,6 +741,23 @@ def test_resource_report_sms_timeout_does_not_penalize_proxy(tmp_path: Path) -> 
     assert {item["type"]: item["classification"] for item in reports} == {"phone": "sms_timeout", "proxy": "sms_timeout"}
 
 
+def test_resource_report_browser_start_failure_releases_email(tmp_path: Path) -> None:
+    pool = ResourcePoolService(ResourcePoolRepository(tmp_path / "browser-start-failed.db"))
+    pool.import_link_api_mailboxes("icloud@example.com----https://mail.local/show/token")
+    overrides, _leases = pool.lease_for_task("task-browser-failed", {"mailbox_provider": "icloud_api"})
+
+    reports = pool.report_for_task(
+        "task-browser-failed",
+        "failed",
+        {"resource_leases": overrides["resource_leases"]},
+        log_text="BrowserType.launch_persistent_context: Target page, context or browser has been closed",
+    )
+
+    available_keys = {item["resource_key"] for item in pool.list_resources("email", "icloud_api", "available")}
+    assert "icloud@example.com" in available_keys
+    assert reports[0]["classification"] == "browser_start_failure"
+    assert reports[0]["status"] == "available"
+
 def test_resource_report_proxy_failure_cools_only_proxy(tmp_path: Path) -> None:
     pool = ResourcePoolService(ResourcePoolRepository(tmp_path / "test.db"))
     pool.import_phone_urls("15555550213|https://sms.example.invalid/messages/3")

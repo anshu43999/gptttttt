@@ -265,15 +265,15 @@ def test_resource_pool_import_and_lease_preserve_code_and_mail_urls(tmp_path: Pa
     assert overrides["icloud_api_order_file"] == ""
 
 
-def test_link_api_create_account_allows_stale_reserved_state(tmp_path: Path, monkeypatch) -> None:
+def test_link_api_create_account_allows_stale_state_for_resource_pool_singleton(tmp_path: Path, monkeypatch) -> None:
     state_file = tmp_path / "outlook_pool_state.jsonl"
     state_file.write_text(
         json.dumps(
             {
                 "email": "icloud@example.com",
-                "status": "reserved",
+                "status": "consumed",
                 "updated_at": "2026-01-01T00:00:00",
-                "last_error": "stale lease",
+                "last_error": "stale consumed marker",
             },
             ensure_ascii=False,
         )
@@ -288,7 +288,7 @@ def test_link_api_create_account_allows_stale_reserved_state(tmp_path: Path, mon
     assert account.email == "icloud@example.com"
 
 
-def test_lease_for_task_sets_icloud_api_email_and_skips_consumed(tmp_path: Path, monkeypatch) -> None:
+def test_lease_for_task_ignores_stale_icloud_api_jsonl_state(tmp_path: Path, monkeypatch) -> None:
     db_path = tmp_path / "icloud-lease.db"
     service = ResourcePoolService(ResourcePoolRepository(db_path))
     service.import_link_api_mailboxes(
@@ -310,8 +310,11 @@ def test_lease_for_task_sets_icloud_api_email_and_skips_consumed(tmp_path: Path,
 
     overrides, leases = service.lease_for_task("task-icloud-2", {"mailbox_provider": "icloud_api"})
 
-    assert [lease.resource_key for lease in leases] == ["icloud@example.com"]
-    assert overrides["icloud_api_email"] == "icloud@example.com"
-    assert overrides["email"] == "icloud@example.com"
-    assert overrides["icloud_api_order_text"].startswith("icloud@example.com----")
-    assert service.list_resources("email", "icloud_api", "used")[0]["resource_key"] == "used@example.com"
+    assert len(leases) == 1
+    leased_email = leases[0].resource_key
+    assert leased_email in {"used@example.com", "icloud@example.com"}
+    assert overrides["icloud_api_email"] == leased_email
+    assert overrides["email"] == leased_email
+    assert overrides["icloud_api_order_text"].startswith(f"{leased_email}----")
+    assert service.list_resources("email", "icloud_api", "used") == []
+    assert service.list_resources("email", "icloud_api", "cooldown") == []
