@@ -758,6 +758,22 @@ def test_resource_report_browser_start_failure_releases_email(tmp_path: Path) ->
     assert reports[0]["classification"] == "browser_start_failure"
     assert reports[0]["status"] == "available"
 
+
+def test_full_pipeline_linux_chromium_launch_args(monkeypatch) -> None:
+    import full_pipeline
+    from full_pipeline import RegisterPipeline
+
+    pipeline = RegisterPipeline({"browser_engine": "playwright", "browser_channel": "chromium"})
+    monkeypatch.setattr(full_pipeline.os, "name", "posix")
+
+    args = pipeline._chromium_launch_args()
+
+    assert "--no-sandbox" in args
+    assert "--disable-setuid-sandbox" in args
+    assert "--disable-dev-shm-usage" in args
+    assert "--disable-gpu" in args
+
+
 def test_resource_report_proxy_failure_cools_only_proxy(tmp_path: Path) -> None:
     pool = ResourcePoolService(ResourcePoolRepository(tmp_path / "test.db"))
     pool.import_phone_urls("15555550213|https://sms.example.invalid/messages/3")

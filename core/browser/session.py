@@ -276,6 +276,11 @@ class BrowserSession:
                 "--disable-setuid-sandbox",
                 "--disable-dev-shm-usage",
                 "--disable-gpu",
+                "--disable-background-networking",
+                "--disable-background-timer-throttling",
+                "--disable-renderer-backgrounding",
+                "--no-first-run",
+                "--no-default-browser-check",
             ])
         seen: set[str] = set()
         return [arg for arg in args if not (arg in seen or seen.add(arg))]

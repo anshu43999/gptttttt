@@ -3470,6 +3470,9 @@ class RegisterPipeline:
             self.playwright_instance = sync_playwright().start()
             channel = str(self.config.get("browser_channel") or "chrome").strip().lower()
             launch_kwargs = {"headless": not headed}
+            launch_args = self._chromium_launch_args()
+            if launch_args:
+                launch_kwargs["args"] = launch_args
             if engine == "patchright" and channel and channel not in {"chromium", "default"}:
                 launch_kwargs["channel"] = channel
 
@@ -3530,6 +3533,31 @@ class RegisterPipeline:
             if engine == "patchright":
                 raise RuntimeError("请安装 Patchright: pip install patchright && patchright install chrome") from exc
             raise RuntimeError("请安装 Playwright: pip install playwright && playwright install chromium") from exc
+
+    def _chromium_launch_args(self) -> list[str]:
+        raw = self.config.get("browser_launch_args") or self.config.get("chromium_args") or []
+        if isinstance(raw, str):
+            args = [part.strip() for part in raw.replace("\n", ",").split(",") if part.strip()]
+        elif isinstance(raw, (list, tuple, set)):
+            args = [str(part).strip() for part in raw if str(part).strip()]
+        else:
+            args = []
+        if os.name != "nt":
+            args.extend(
+                [
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-gpu",
+                    "--disable-background-networking",
+                    "--disable-background-timer-throttling",
+                    "--disable-renderer-backgrounding",
+                    "--no-first-run",
+                    "--no-default-browser-check",
+                ]
+            )
+        seen: set[str] = set()
+        return [arg for arg in args if not (arg in seen or seen.add(arg))]
 
     def _wait_for_paid_plan(self) -> str:
         retries = self._config_int("plus_verify_retries", 6, minimum=1)
