@@ -5,7 +5,7 @@ headed: false
 browser_mode: protocol
 browser_engine: playwright
 browser_channel: chromium
-browser_profile_mode: per_task
+browser_profile_mode: ephemeral
 browser_no_viewport: true
 use_camoufox: false
 save_session: true

@@ -329,8 +329,6 @@ export default function Register() {
         proxy_mode: proxyMode || undefined,
         proxy_region: proxyRegion || undefined,
         lajiao_proxy_credential_protocol: proxyMode === 'credentials' ? proxyCredentialProtocol : undefined,
-        browser_engine: mode === 'email' ? 'patchright' : undefined,
-        browser_profile_mode: mode === 'email' ? 'per_task' : undefined,
         browser_no_viewport: mode === 'email' ? true : undefined,
         email_register_flow: mode === 'email' ? 'fast' : undefined,
         email_otp_timeout: mode === 'email' || mode === 'email_protocol' ? 200 : undefined,

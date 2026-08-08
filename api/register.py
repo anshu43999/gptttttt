@@ -81,8 +81,10 @@ def config_overrides(data: dict) -> dict:
     if mode in {"email", "email_phone", "email-register-token"}:
         overrides.setdefault("mailbox_provider", mailbox_provider or "icloud_api")
         overrides.setdefault("email_register_flow", str(data.get("email_register_flow") or "fast"))
-        overrides.setdefault("browser_engine", str(data.get("browser_engine") or "patchright"))
-        overrides.setdefault("browser_profile_mode", str(data.get("browser_profile_mode") or "per_task"))
+        if data.get("browser_engine") not in {None, ""}:
+            overrides.setdefault("browser_engine", str(data.get("browser_engine") or "").strip())
+        if data.get("browser_profile_mode") not in {None, ""}:
+            overrides.setdefault("browser_profile_mode", str(data.get("browser_profile_mode") or "").strip())
         overrides.setdefault("browser_no_viewport", bool(data.get("browser_no_viewport", True)))
         overrides.setdefault("locale", str(data.get("locale") or "ja-JP"))
         overrides.setdefault("timezone_id", str(data.get("timezone_id") or "Asia/Tokyo"))

@@ -14,6 +14,7 @@ Long-running helper functions are imported from their canonical homes:
 from __future__ import annotations
 
 import json
+import os
 import secrets
 import uuid
 import time
@@ -180,6 +181,9 @@ class BrowserSession:
 
         self.playwright_instance = sync_playwright().start()
         launch_kwargs: dict[str, Any] = {"headless": not headed}
+        launch_args = self._chromium_launch_args()
+        if launch_args:
+            launch_kwargs["args"] = launch_args
 
         proxy_config = self._build_proxy_config()
         if proxy_config:
@@ -208,6 +212,9 @@ class BrowserSession:
             context_kwargs["proxy"] = proxy_config
         context_kwargs["headless"] = not headed
         context_kwargs["no_viewport"] = bool(self.config.get("browser_no_viewport", True))
+        launch_args = self._chromium_launch_args()
+        if launch_args:
+            context_kwargs["args"] = launch_args
         channel = str(self.config.get("browser_channel") or "chrome").strip().lower()
         if channel and channel not in {"chromium", "default"}:
             context_kwargs["channel"] = channel
@@ -226,6 +233,8 @@ class BrowserSession:
                 self._restore_storage_state_into_context(storage_state)
         else:
             launch_kwargs = {"headless": not headed}
+            if launch_args:
+                launch_kwargs["args"] = launch_args
             if channel and channel not in {"chromium", "default"}:
                 launch_kwargs["channel"] = channel
             if proxy_config:
@@ -252,6 +261,24 @@ class BrowserSession:
         if accept_language:
             context_kwargs["extra_http_headers"] = {"Accept-Language": accept_language}
         return context_kwargs
+
+    def _chromium_launch_args(self) -> list[str]:
+        raw = self.config.get("browser_launch_args") or self.config.get("chromium_args") or []
+        if isinstance(raw, str):
+            args = [part.strip() for part in raw.replace("\\n", ",").split(",") if part.strip()]
+        elif isinstance(raw, (list, tuple, set)):
+            args = [str(part).strip() for part in raw if str(part).strip()]
+        else:
+            args = []
+        if os.name != "nt":
+            args.extend([
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+            ])
+        seen: set[str] = set()
+        return [arg for arg in args if not (arg in seen or seen.add(arg))]
 
     def _build_proxy_config(self) -> Optional[dict[str, str]]:
         proxy_url = str(self.config.get("proxy") or "").strip()
